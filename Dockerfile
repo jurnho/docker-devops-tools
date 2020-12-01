@@ -17,5 +17,11 @@ RUN ln -s aws-vault-linux-amd64 aws-vault
 RUN chmod 755 aws-vault-linux-amd64
 RUN apt-get install -y pass
 
+RUN mkdir /opt/terragrunt
+WORKDIR /opt/terragrunt
+RUN wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.26.7/terragrunt_linux_amd64
+
+RUN apt-get install -y dnsutils
+
 RUN useradd -m devops --shell /bin/bash
 
