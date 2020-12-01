@@ -20,6 +20,8 @@ RUN apt-get install -y pass
 RUN mkdir /opt/terragrunt
 WORKDIR /opt/terragrunt
 RUN wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.26.7/terragrunt_linux_amd64
+RUN chmod 755 terragrunt_linux_amd64
+RUN ln -s terragrunt_linux_amd64 terragrunt
 
 RUN apt-get install -y dnsutils
 
