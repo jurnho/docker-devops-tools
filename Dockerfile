@@ -5,7 +5,15 @@ RUN apt-get install -y unzip
 RUN apt-get install -y openssh-client
 RUN apt-get install -y git
 RUN apt-get install -y vim
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y awscli
+
+WORKDIR /opt
+# RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.1.6.zip
+
+RUN unzip awscli-exe-linux-x86_64-2.1.6.zip
+RUN /opt/aws/install
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y groff
+
 WORKDIR /opt
 RUN wget https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip
 RUN unzip terraform_0.13.5_linux_amd64.zip -d terraform_0.13.5_linux_amd64
@@ -23,7 +31,11 @@ RUN wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.26.7/te
 RUN chmod 755 terragrunt_linux_amd64
 RUN ln -s terragrunt_linux_amd64 terragrunt
 
-RUN apt-get install -y dnsutils
+RUN apt-get install -y python3-pip
+RUN pip3 install ansible boto3
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y dnsutils
 
 RUN useradd -m devops --shell /bin/bash
 
+WORKDIR /
